@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo 1</title>
+    <link rel="stylesheet" type="text/css" href="estilos3.css" />
+</head>
+<body>
+  <section id="container"></section>
+
+  <script type="text/javascript" src="http://fb.me/react-0.13.3.js" ></script>
+  <script type="text/javascript" src="http://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script type="text/jsx;harmony=true">
+    var pokemons = [
+      { number: 1, name:"Bulbasaur" },
+      { number: 2, name:"Ivysaur" },
+      { number: 3, name:"Venasaur" }
+    ];
+
+    class PokeAvatar extends React.Component{
+      render(){
+        var url = `http://veekun.com/dex/media/pokemon/main-sprites/x-y/${this.props.number}.png`;
+
+        return <img src={url} className="avatar" />
+      };
+    };
+
+    class PokeRow extends React.Component{
+      render(){
+        
+        return <li className="pokerow">
+          <PokeAvatar number={this.props.number}/>
+          {this.props.name}
+        </li>
+      };
+    };
+
+    class PokeTable extends React.Component{
+      render(){
+
+        return <ul className="poketable">
+          {
+            this.props.pokemons.map( (pokemon) => {
+              return <PokeRow key={pokemon.number} name={pokemon.name} number={pokemon.number} />
+            })
+          }
+        </ul>
+      }
+    }
+
+    React.render(
+      <PokeTable pokemons={pokemons} />,
+      document.getElementById('container')
+    );
+  </script>
+</body>
+</html>
